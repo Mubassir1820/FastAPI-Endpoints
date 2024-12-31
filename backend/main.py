@@ -4,6 +4,13 @@ from fastapi import FastAPI
 from core.config import settings
 from fastapi.responses import JSONResponse
 from fastapi import status
+from pydantic import BaseModel
+
+
+class BookCreate(BaseModel):
+    title: str
+    author: str
+    year: int
 
 
 
@@ -30,3 +37,17 @@ def get_single_book(book_id: int):
             return book
 
     return JSONResponse(content={"Error!":"Book is not available!"}, status_code=status.HTTP_404_NOT_FOUND)
+
+
+@app.post("/books")
+def create_books(book: BookCreate):
+    new_book = {
+        'id': 5,
+        'title': book.title,
+        'author': book.author,
+        'year': book.year
+    }
+
+    books.append(new_book)
+
+    return JSONResponse(content={"Success": "Book added successfully"},status_code=status.HTTP_201_CREATED)
