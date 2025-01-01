@@ -14,6 +14,11 @@ class BookCreate(BaseModel):
     year: int
 
 
+class BookUpdate(BaseModel):
+    title: str
+    author: str
+    year: int
+
 
 
 books = [
@@ -52,3 +57,8 @@ def create_books(book: BookCreate):
     books.append(new_book)
 
     return JSONResponse(content={"Success": "Book added successfully"},status_code=status.HTTP_201_CREATED)
+
+
+@app.put("/books/{book_id}")
+def update_book(book_id: int, book: BookUpdate):
+    return JSONResponse(content={"message": "Book updated successfully!"},status_code=status.HTTP_200_OK)
