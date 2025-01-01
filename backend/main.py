@@ -5,6 +5,7 @@ from core.config import settings
 from fastapi.responses import JSONResponse
 from fastapi import status
 from pydantic import BaseModel
+from typing import Optional
 
 
 class BookCreate(BaseModel):
@@ -42,7 +43,7 @@ def get_single_book(book_id: int):
 @app.post("/books")
 def create_books(book: BookCreate):
     new_book = {
-        'id': 5,
+        'id': len(books)+1,
         'title': book.title,
         'author': book.author,
         'year': book.year
