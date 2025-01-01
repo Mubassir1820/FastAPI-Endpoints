@@ -19,6 +19,10 @@ class BookUpdate(BaseModel):
     author: str
     year: int
 
+class BookPartialUpdate(BaseModel):
+    title: Optional[str]
+    author: Optional[str]
+    year: Optional[int]
 
 
 books = [
@@ -62,3 +66,17 @@ def create_books(book: BookCreate):
 @app.put("/books/{book_id}")
 def update_book(book_id: int, book: BookUpdate):
     return JSONResponse(content={"message": "Book updated successfully!"},status_code=status.HTTP_200_OK)
+
+
+@app.patch("/books/{book_id}")
+def partial_update(book_id: int, book: BookPartialUpdate):
+    if book.title:
+        print("Title updated!")
+
+    if book.author:
+        print("Author updated!")
+
+    if book.year:
+        print("Year updated!")
+
+    return JSONResponse(content={"message": "Book updated successfully!"}, status_code=status.HTTP_200_OK)
