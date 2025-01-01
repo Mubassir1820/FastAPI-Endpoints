@@ -20,9 +20,9 @@ class BookUpdate(BaseModel):
     year: int
 
 class BookPartialUpdate(BaseModel):
-    title: Optional[str]
-    author: Optional[str]
-    year: Optional[int]
+    title: Optional[str] = None
+    author: Optional[str] = None
+    year: Optional[int] = None
 
 
 books = [
@@ -80,3 +80,11 @@ def partial_update(book_id: int, book: BookPartialUpdate):
         print("Year updated!")
 
     return JSONResponse(content={"message": "Book updated successfully!"}, status_code=status.HTTP_200_OK)
+
+
+@app.delete("/books/{book_id}")
+def delete_book(book_id: int):
+    return JSONResponse(
+        content = {"success": "Book deleted successfully"},
+        status_code=status.HTTP_204_NO_CONTENT
+    )
